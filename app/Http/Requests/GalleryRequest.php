@@ -24,7 +24,9 @@ class GalleryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nama' => 'required',
+            'alamat' =>'required',
+            'image' => 'image|image|max:2000'
         ];
     }
 }

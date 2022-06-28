@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\http\Controlles\KaryawanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,18 +26,19 @@ Route::get('/', function () {
 // Route::patch('/karyawans/{karyawan}','KaryawanController@update')->name('karyawans.update');
 // Route::delete('/karyawans/{karyawan}','KaryawanController@destroy')->name('karyawans.destroy');
 
-Route::resource('/karyawans','KaryawanController');
-
-
-Route::get('/file-upload','FileUploadController@FileUpload');
-Route::post('/file-upload','FileUploadController@prosesFileUpload');
-
-
-Route::get('/file-upload-rename', 'FileUploadController@FileUploadRename');
-Route::post('/file-upload-rename', 'FileUploadController@prosesFileUploadRename');
+// Route::resource('/karyawans','KaryawanController');
+Route::resource('gallery','GalleryController');
+Route::resource('/karyawan','KaryawanController');
+Route::resource('/sistem', 'SistemController');
 
 
 
+// Route::get('/file-upload','FileUploadController@FileUpload');
+// Route::post('/file-upload','FileUploadController@prosesFileUpload');
+
+
+// Route::get('/file-upload-rename', 'FileUploadController@FileUploadRename');
+// Route::post('/file-upload-rename', 'FileUploadController@prosesFileUploadRename');
 
 
 
@@ -44,18 +46,21 @@ Route::post('/file-upload-rename', 'FileUploadController@prosesFileUploadRename'
 
 
 
-Route::get('/cek-data','KaryawanController@cekdata');
-Route::get('/insert','KaryawanController@insert');
-Route::get('/content','KaryawanController@content');
-Route::get('/content1','KaryawanController@content1');
-Route::get('/update','KaryawanController@update');
-Route::get('/updatewhere','KaryawanController@updatewhere');
-Route::get('/karUpdate','KaryawanController@karUpdate');
-Route::get('/delete','KaryawanController@delete');
-Route::get('/destroy','KaryawanController@destroy');
-Route::get('/kar-delete','KaryawanController@karDelete');
-Route::get('/all','KaryawanController@all');
-Route::get('/allview','KaryawanController@allview');
+
+
+
+// Route::get('/cek-data','KaryawanController@cekdata');
+// Route::get('/insert','KaryawanController@insert');
+// Route::get('/content','KaryawanController@content');
+// Route::get('/content1','KaryawanController@content1');
+// Route::get('/update','KaryawanController@update');
+// Route::get('/updatewhere','KaryawanController@updatewhere');
+// Route::get('/karUpdate','KaryawanController@karUpdate');
+// Route::get('/delete','KaryawanController@delete');
+// Route::get('/destroy','KaryawanController@destroy');
+// Route::get('/kar-delete','KaryawanController@karDelete');
+// Route::get('/all','KaryawanController@all');
+// Route::get('/allview','KaryawanController@allview');
 
 
 // use App\Http\Controllers\PageController;

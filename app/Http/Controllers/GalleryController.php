@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\GalleryRequest;
+use App\Models\Gallery;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
@@ -13,7 +16,8 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        //
+        $item = Gallery::all();
+        return view('gallery.index', compact('item'));
     }
 
     /**
@@ -23,7 +27,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        //
+        return view('gallery.create');
     }
 
     /**
@@ -32,9 +36,15 @@ class GalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GalleryRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['image'] = $request->file('image')->store('assets/gallery','public');
+
+        Gallery::create($data);
+        $request->session()->flash('pesan', "Data Berhasil Disimpan");
+        return redirect()->route('gallery.index');
+
     }
 
     /**
@@ -54,9 +64,11 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Gallery $gallery)
     {
-        //
+        $gallery->find($gallery->id)->all();
+        return view('gallery.edit', compact('gallery'));
+
     }
 
     /**
@@ -66,9 +78,19 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GalleryRequest $request, Gallery $gallery)
     {
-        //
+        $dataId = $gallery->find($gallery->id);
+        $data = $request->all();
+        if($request->image){
+            Storage::delete('public/'.$dataId->image);
+            $data['image'] = $request->file('image')->store('assets/gallery','public');
+
+        }
+
+        $dataId->update($data);
+        session()->flash('edit', "Data {$data['nama']} Berhasil di Ubah");
+        return redirect()->route('gallery.index');
     }
 
     /**
@@ -79,6 +101,9 @@ class GalleryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Gallery::findOrFail($id);
+        $item->delete();
+
+        return redirect()->route('gallery.index');
     }
 }
